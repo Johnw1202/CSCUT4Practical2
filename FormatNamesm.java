@@ -2,6 +2,9 @@ import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.swing.*;
 import java.lang.Number;
 import java.text.ParseException;
@@ -12,7 +15,7 @@ import java.text.SimpleDateFormat;
  * CSCU9T4 Java strings and files exercise.
  *
  */
-public class FilesInOut {
+public class FormatNamesm {
 
     public static void main(String[] args) throws FileNotFoundException {
     	
@@ -64,6 +67,25 @@ public class FilesInOut {
     			}
     			
     			name = String.valueOf(nameArray); //recombines characters to string
+    			
+    			String[] names = name.split("\\s+"); //splits name into array of strings
+    			
+    			for (int k = 0; k < names.length; k++)
+    			{
+    				if (names[k].length() == 1) // looks for initials
+    				{
+    					names[k] = " " + names[k] + ". ";  //adds . to initials and spaces that were lost to split delimiter
+    				}
+    				else {names[k] = names[k] + " ";} //adds spaces that were lost to split delimiter
+    			}
+    			
+    			StringBuffer sb = new StringBuffer();   
+    			for (int l = 0; l < names.length; l++)
+    			{
+    				sb.append(names[l]);   // recombines array into string
+    			}
+    			
+    			name = sb.toString().trim();
     			
     			Integer dobNumber = Integer.parseInt(number); // changes number to int
     			SimpleDateFormat originalFormat = new SimpleDateFormat("ddMMyyyy"); // date format
